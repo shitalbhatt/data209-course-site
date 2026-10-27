@@ -19,6 +19,7 @@
     <a href="#cheat">Cheat sheet</a>
     <a href="#exam">Exam</a>
     <a href="#quiz">Quiz</a>
+    <a href="#resources">Materials</a>
   </nav>
   <button id="theme" aria-label="Toggle dark mode">◐</button>
 </header>
@@ -719,6 +720,19 @@ TSNE(2, random_state=42).fit_transform(Z)</code></pre></div>
       <tr><td>24–25</td><td>P13–14</td><td>Grammar of Graphics + redesign a plot; design a 2–3 chart dashboard</td></tr>
     </table>
   </div>
+    <div class="card">
+    <h4>Assignment 2 (final): Modules 3, L/P 15–22</h4>
+    <p>25 marks, 2 hours, 17 questions (9 × 1 mark, 8 × 2 marks). Every student gets a different merged dataset (Dataset1–10) with quality problems; the paper never names a feature, so you identify the ID, numeric, categorical and free-text columns yourself. Only the Answer Table at the end of the notebook is marked, and your code must show the output. Allowed: one A4 sheet. Not allowed: internet, AI tools, phones. Rename the notebook <code>DatasetNo_UENNo_Name.ipynb</code>, then Restart &amp; Run All before upload.</p>
+    <table class="qmap">
+      <tr><th>Section</th><th>Marks</th><th>Questions</th></tr>
+      <tr><td>A · Data quality (P15–16)</td><td>8</td><td>Q1 audit (shape, % missing, copied column) · Q2 duplicates and ID · Q3 multi-source conflicts (Spelling only / Value) · Q4 strip + title-case labels, new duplicates · Q5 validity (values ≤ 0, Systematic if &gt; 10%) · Q6 peer check above the 95th percentile of the class group</td></tr>
+      <tr><td>B · Missing values (P17–18)</td><td>6</td><td>Q7 most-missing feature and action (&lt; 5% delete, 5–30% impute, &gt; 30% consider dropping) · Q8 missing flag correlation, MAR if ≥ 90% at minimum, MCAR if |r| &lt; 0.05 · Q9 mean, median, KNN (k=7), regression: variance retained · Q10 listwise deletion bias (±5%)</td></tr>
+      <tr><td>C · Outliers (P19–20)</td><td>5</td><td>Q11 Z-score cut-off |z| &gt; 2.5 · Q12 3 × IQR fences, IQR-only count, IQR if |skew| &gt; 1 · Q13 remove vs cap vs log1p, which gets skew closest to 0</td></tr>
+      <tr><td>D · Encoding and imbalance (P21–22)</td><td>6</td><td>Q14 dummies with and without drop_first (dummy variable trap) · Q15 frequency encoding, rare categories (&lt; 0.01) · Q16 target encoding on 70% train, difference vs full data (leakage) · Q17 minority %, imbalance ratio, balanced weight, majority-class accuracy</td></tr>
+    </table>
+    <p class="note">Rules used: most-skewed = numeric non-ID column with highest skew; class feature = categorical with fewest categories; largest categorical = most categories. Answers are within ±0.01 (±0.02 skew, ±0.2 % variance). An answer with no visible output gets 0. Interpretations follow the rule written in the question. Same answers as another student on a different dataset, or AI or internet use, gives 0 for the whole paper.</p>
+    <p class="note">Sample key (NYC Airbnb merge, 49,895 × 17): Q1 2.43% missing, copy = price_usd · Q2 700 duplicates (1.40%), 300 repeated IDs · Q5 availability_365, 35.86%, Systematic · Q7 reviews_per_month 20.56%, Impute · Q8 MAR · Q9 mean 79.4, median 81.9, KNN 86.5, regression 83.0 · Q11 cut-off 58.31 · Q12 fences −11 and 17, 5,589 flagged · Q13 log1p best (skew 1.50) · Q14 6 vs 8 columns · Q17 shared room 2.37%, ratio 21.9, weight 14.05, always-majority 51.97%, accuracy not reliable.</p>
+  </div>
   <div class="card">
     <h4>Answer template</h4>
     <ol class="tight"><li><b>Code</b> that runs on the given column</li><li><b>Output</b> (number/table/plot) left visible</li><li><b>Interpretation</b> in 2 sentences: quote the actual numbers, say what they imply, name the better statistic or next step</li></ol>
@@ -733,6 +747,64 @@ TSNE(2, random_state=42).fit_transform(Z)</code></pre></div>
   <div class="card" id="qcard"></div>
   <div class="qctl"><button id="qnext" class="btn" disabled>Next</button><button id="qreset" class="btn ghost">Restart</button></div>
 </section>
+<!-- RESOURCES -->
+<section id="resources">
+  <h2>Course materials</h2>
+  <p class="note">Links go to the course Drive folder. They open only for accounts with access to it.</p>
+  <div class="grid two">
+    <div class="card"><h4>Course documents</h4><ul class="tight">
+      <li><a href="https://drive.google.com/file/d/1PuzCDQqSaFxOwpP3O2gbzOySbyOH0fgQ/view">Advanced EDA course plan (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1psuHVQtUP7Tb365dsCJwhC6jNTGCeTc3/view">DATA209 Advanced EDA textbook (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1TZk__h6lVL7xTPrmP25HRkeo19Ez7534/view">Large EDA datasets by domain</a></li>
+      <li><a href="https://drive.google.com/file/d/1lOk31x3Kt5JoEdjJbEJpVclgNZD9lLiw/view">Univariate analysis report (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1YR5oBzXuA9a87RcciYC1CKXh_dFDjRNY/view">VU undergraduate ethics review form</a></li>
+      <li><a href="https://drive.google.com/drive/folders/17di3AQKwSTy80EqBqw9JOVeiXjlm818T">Ethical approval folder</a></li>
+    </ul></div>
+    <div class="card"><h4>Module 1 · L1–6</h4><ul class="tight">
+      <li><a href="https://drive.google.com/file/d/1iGQ63M54U1Iu82tOIdfbt5yYQh2yf0fU/view">Lectures 1–6 slides (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1lq4cLEHhsNIWZ03E9gYBDgA42tGNKuVN/view">Real-world EDA (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1TTBq1Co1zToSEArOz8-f0O8kSlu3rmVY/view">Data science campus projects (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/170AlyIXUMZxT-Py-eR-31oxENPpDAe2F/view">EDA student template (notebook)</a></li>
+      <li><a href="https://drive.google.com/drive/folders/1p78SiUsjRegNbDBgViVrUOi7q_j9rsXL">Lab folders (Labs 1–2, 3–4, 5)</a></li>
+    </ul></div>
+    <div class="card"><h4>Module 2 · L7–14</h4><ul class="tight">
+      <li><a href="https://drive.google.com/file/d/1oJMDxxfnLX47IHmn65I33yOXMFVrncfD/view">L7–8 non-graphical vs graphical (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1ZvHoN9kjCwk5OSqgAlbnrf7Egi7P8DZI/view">P7–8 univariate EDA lab (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1YDJ42X58crfQb8i-r2_lmJsoiSffn8Fu/view">L9–10 bivariate lecture (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/14W2yeNPQPsUIVFY_etUmI40piWbJrtTE/view">P9–10 bivariate lab (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/14L_H19QnNF5j1hh7kOSVTcyPmE_eoBb5/view">L11–12 multivariate lecture (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1V1UKQ1P-Hc2rKSv3AThgS3cyv-sD8tPS/view">P11–12 multivariate lab (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1NMW8BBXuApL4WenyI6U9n_VU2yBBse7m/view">P13–14 visualization lab (notebook)</a></li>
+    </ul><p class="note">Dataset: <a href="https://drive.google.com/file/d/1HnLhC85aV388yMd4mSkpvCvLHFr4vb2A/view">superstore_retail_orders.csv</a></p></div>
+    <div class="card"><h4>Module 3 · L15–22</h4><ul class="tight">
+      <li><a href="https://drive.google.com/file/d/1DdCqE5Py42mE6zgdsZAA2N5gV6TU7xCc/view">P15–16 data quality lab (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/12-xqtkrQa789QdVvQ2Ehvao2p93jdETL/view">P15–16 data quality integration (notebook)</a></li>
+      <li><a href="https://drive.google.com/file/d/1jpgH-SyypfqtgdgG5fg1aPB0GktOs6O1/view">L/P 17–18 missing values (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1AiK-Y-Kt0npYUjnwOzZgB0yYXnzYRbTD/view">P17–18 missing values lab (notebook)</a></li>
+      <li><a href="https://drive.google.com/file/d/1kh1rtdlPXU4SJeaIuGekinUcqCKMNuql/view">L/P 19–20 outliers (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1_NsjMgEKknOKuaNQeCxwhlY3DbH6eJMS/view">P19–20 outliers lab (notebook)</a></li>
+      <li><a href="https://drive.google.com/file/d/1gsvTLdLtC77_HD0O4L7IdfNAMWERESnT/view">L/P 21–22 encoding and imbalance (PDF)</a></li>
+    </ul></div>
+    <div class="card"><h4>Module 4 · L23–30</h4><ul class="tight">
+      <li><a href="https://drive.google.com/file/d/1WJulmMJGU9_H_jRLc_noGjnz_Daru-Hl/view">L23–24 transformation and scaling (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1v1KvSKFroyQ41stTDs31KO-iou60Y4Q2/view">L25–26 feature engineering and selection (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1DTfQJw4T2CDuVRi-2gzGYDS56JWW3McV/view">P25–26 feature engineering lab (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1JTxd4swMSdcNLglWvtn6CSLcgsAa_3Bd/view">L27–28 dimensionality reduction (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1ToTGDgHmx4DQ2mbzlPwyk2Qs8i4xpRS1/view">P27–28 PCA lab (PDF)</a></li>
+      <li><a href="https://drive.google.com/file/d/1is2n3gF4morgps2BCxrubqYaeeLXkZR9/view">P27–28 PCA, LDA, t-SNE, UMAP, VIF (notebook)</a></li>
+    </ul></div>
+    <div class="card"><h4>Assignments and exam</h4><ul class="tight">
+      <li><a href="https://drive.google.com/drive/folders/1UvYNN9TRVLRfZpz3Y1zlTd-vWvOYQfMm">Assignment 1 folder (cohorts, datasets, answer keys)</a></li>
+      <li><a href="https://drive.google.com/file/d/1dEoElSKFlSkMl6TMMWlwAsbgUJolWlkV/view">Exam pre-exam handout</a></li>
+      <li><a href="https://drive.google.com/file/d/1cyVRS4cWyVVGSZ1P1IRqI5VK_Q7Ogamq/view">Revised exam handout (3 questions replaced)</a></li>
+      <li><a href="https://drive.google.com/file/d/1fm9X5PqJaDgmT5oqDiOQufoKFLr3Xp9L/view">Exam question paper (revised)</a></li>
+      <li><a href="https://drive.google.com/file/d/1n0-nnFS_pehr7W3JoDe4hc1ci163_xzc/view">Assignment 2 sample paper and key (PDF)</a></li>
+      <li><a href="https://drive.google.com/drive/folders/16mzmlCEh7cs9wiB5UuxdV4YXZSxbWtOP">Assignment 2 folder</a></li>
+      <li><a href="https://drive.google.com/file/d/11c1mUpS9rhOKeVcgfyZuJsWjfRnapQf3/view">Retail customer reviews dataset (exam)</a></li>
+    </ul></div>
+  </div>
+</section>
+
 </main>
 
 <footer>
