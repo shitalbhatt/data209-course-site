@@ -1,0 +1,859 @@
+[
+ {
+  "id": "titanic",
+  "file": "titanic.csv",
+  "title": "Titanic passengers",
+  "domain": "Transport / history",
+  "target": "Survived",
+  "rows": 891,
+  "cols": 12,
+  "kb": 59,
+  "missing": 8.1,
+  "issues": [
+   "866 blank cells",
+   "ID column: PassengerId, Name",
+   "mixed text/number column"
+  ],
+  "source": "Datasciencedojo",
+  "url": "https://github.com/datasciencedojo/datasets"
+ },
+ {
+  "id": "penguins",
+  "file": "penguins.csv",
+  "title": "Palmer penguins",
+  "domain": "Biology",
+  "target": "species",
+  "rows": 344,
+  "cols": 7,
+  "kb": 13,
+  "missing": 0.8,
+  "issues": [
+   "19 blank cells",
+   "imbalanced target (19.8 % minority)"
+  ],
+  "source": "seaborn-data",
+  "url": "https://github.com/mwaskom/seaborn-data"
+ },
+ {
+  "id": "mpg",
+  "file": "mpg.csv",
+  "title": "Car fuel economy (1970\u201382)",
+  "domain": "Automotive",
+  "target": "mpg",
+  "rows": 398,
+  "cols": 9,
+  "kb": 21,
+  "missing": 0.2,
+  "issues": [
+   "6 blank cells"
+  ],
+  "source": "seaborn-data",
+  "url": "https://github.com/mwaskom/seaborn-data"
+ },
+ {
+  "id": "planets",
+  "file": "planets.csv",
+  "title": "Exoplanet discoveries",
+  "domain": "Astronomy",
+  "target": "method",
+  "rows": 1035,
+  "cols": 6,
+  "kb": 35,
+  "missing": 12.8,
+  "issues": [
+   "792 blank cells",
+   "4 duplicate rows",
+   "imbalanced target (0.1 % minority)"
+  ],
+  "source": "seaborn-data",
+  "url": "https://github.com/mwaskom/seaborn-data"
+ },
+ {
+  "id": "diamonds",
+  "file": "diamonds.csv",
+  "title": "Diamond prices",
+  "domain": "Retail",
+  "target": "price",
+  "rows": 53940,
+  "cols": 10,
+  "kb": 2707,
+  "missing": 0.0,
+  "issues": [
+   "146 duplicate rows"
+  ],
+  "source": "seaborn-data",
+  "url": "https://github.com/mwaskom/seaborn-data"
+ },
+ {
+  "id": "tips",
+  "file": "tips.csv",
+  "title": "Restaurant tips",
+  "domain": "Hospitality",
+  "target": "tip",
+  "rows": 244,
+  "cols": 7,
+  "kb": 10,
+  "missing": 0.0,
+  "issues": [
+   "1 duplicate rows"
+  ],
+  "source": "seaborn-data",
+  "url": "https://github.com/mwaskom/seaborn-data"
+ },
+ {
+  "id": "taxis",
+  "file": "taxis.csv",
+  "title": "NYC taxi trips (March 2019)",
+  "domain": "Transport",
+  "target": "payment",
+  "rows": 6433,
+  "cols": 14,
+  "kb": 849,
+  "missing": 0.2,
+  "issues": [
+   "186 blank cells",
+   "date column"
+  ],
+  "source": "seaborn-data",
+  "url": "https://github.com/mwaskom/seaborn-data"
+ },
+ {
+  "id": "seaice",
+  "file": "seaice.csv",
+  "title": "Arctic sea-ice extent (daily)",
+  "domain": "Climate \u00b7 time series",
+  "target": "Extent",
+  "rows": 13175,
+  "cols": 2,
+  "kb": 226,
+  "missing": 0.0,
+  "issues": [
+   "date column"
+  ],
+  "source": "seaborn-data",
+  "url": "https://github.com/mwaskom/seaborn-data"
+ },
+ {
+  "id": "breast_cancer_wisconsin",
+  "file": "breast_cancer_wisconsin.csv",
+  "title": "Breast cancer biopsies (Wisconsin)",
+  "domain": "Healthcare",
+  "target": "col_10",
+  "rows": 699,
+  "cols": 10,
+  "kb": 14,
+  "missing": 0.2,
+  "issues": [
+   "no header row",
+   "16 '?' cells",
+   "236 duplicate rows"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "horse_colic",
+  "file": "horse_colic.csv",
+  "title": "Horse colic cases",
+  "domain": "Veterinary",
+  "target": "col_24",
+  "rows": 300,
+  "cols": 28,
+  "kb": 25,
+  "missing": 19.1,
+  "issues": [
+   "no header row",
+   "1,605 '?' cells"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "abalone",
+  "file": "abalone.csv",
+  "title": "Abalone measurements",
+  "domain": "Marine biology",
+  "target": "col_9",
+  "rows": 4177,
+  "cols": 9,
+  "kb": 187,
+  "missing": 0.0,
+  "issues": [
+   "no header row"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "banknote",
+  "file": "banknote.csv",
+  "title": "Banknote authentication",
+  "domain": "Finance / fraud",
+  "target": "col_5",
+  "rows": 1372,
+  "cols": 5,
+  "kb": 44,
+  "missing": 0.0,
+  "issues": [
+   "no header row",
+   "24 duplicate rows"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "glass",
+  "file": "glass.csv",
+  "title": "Glass identification (forensics)",
+  "domain": "Forensics",
+  "target": "col_10",
+  "rows": 214,
+  "cols": 10,
+  "kb": 11,
+  "missing": 0.0,
+  "issues": [
+   "no header row",
+   "1 duplicate rows",
+   "imbalanced target (4.2 % minority)"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "haberman",
+  "file": "haberman.csv",
+  "title": "Breast-cancer surgery survival (Haberman)",
+  "domain": "Healthcare",
+  "target": "col_4",
+  "rows": 306,
+  "cols": 4,
+  "kb": 3,
+  "missing": 0.0,
+  "issues": [
+   "no header row",
+   "17 duplicate rows"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "sonar",
+  "file": "sonar.csv",
+  "title": "Sonar: rock vs mine",
+  "domain": "Engineering \u00b7 wide data",
+  "target": "col_61",
+  "rows": 208,
+  "cols": 61,
+  "kb": 86,
+  "missing": 0.0,
+  "issues": [
+   "no header row",
+   "wide (61 columns)"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "pollution_beijing",
+  "file": "pollution_beijing.csv",
+  "title": "Beijing PM2.5 pollution (hourly)",
+  "domain": "Environment \u00b7 time series",
+  "target": "pm2.5",
+  "rows": 43824,
+  "cols": 13,
+  "kb": 1921,
+  "missing": 0.4,
+  "issues": [
+   "2,067 'NA' cells"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "monthly_sunspots",
+  "file": "monthly_sunspots.csv",
+  "title": "Monthly sunspots (1749\u20131983)",
+  "domain": "Astronomy \u00b7 time series",
+  "target": "Sunspots",
+  "rows": 2820,
+  "cols": 2,
+  "kb": 41,
+  "missing": 0.0,
+  "issues": [
+   "date column"
+  ],
+  "source": "jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "oil_spill",
+  "file": "oil_spill.csv",
+  "title": "Oil-spill satellite patches",
+  "domain": "Environment \u00b7 imbalanced",
+  "target": "col_50",
+  "rows": 937,
+  "cols": 50,
+  "kb": 226,
+  "missing": 0.0,
+  "issues": [
+   "no header row",
+   "wide (50 columns)",
+   "imbalanced target (4.4 % minority)"
+  ],
+  "source": "jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "wine_quality_white",
+  "file": "wine_quality_white.csv",
+  "title": "White wine quality",
+  "domain": "Food & beverage",
+  "target": "col_12",
+  "rows": 4898,
+  "cols": 12,
+  "kb": 258,
+  "missing": 0.0,
+  "issues": [
+   "no header row",
+   "937 duplicate rows",
+   "imbalanced target (0.1 % minority)"
+  ],
+  "source": "UCI via jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "mammography",
+  "file": "mammography.csv",
+  "title": "Mammography microcalcifications",
+  "domain": "Healthcare \u00b7 imbalanced",
+  "target": "col_7",
+  "rows": 11183,
+  "cols": 7,
+  "kb": 808,
+  "missing": 0.0,
+  "issues": [
+   "no header row",
+   "3,334 duplicate rows",
+   "imbalanced target (2.3 % minority)"
+  ],
+  "source": "jbrownlee/Datasets",
+  "url": "https://github.com/jbrownlee/Datasets"
+ },
+ {
+  "id": "college_majors",
+  "file": "college_majors.csv",
+  "title": "US college majors and earnings",
+  "domain": "Education",
+  "target": "Major_category",
+  "rows": 173,
+  "cols": 21,
+  "kb": 26,
+  "missing": 0.1,
+  "issues": [
+   "4 blank cells"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "fandango",
+  "file": "fandango.csv",
+  "title": "Movie ratings: Fandango vs critics",
+  "domain": "Media",
+  "target": "Fandango_Stars",
+  "rows": 146,
+  "cols": 22,
+  "kb": 15,
+  "missing": 0.0,
+  "issues": [
+   "imbalanced target (7.5 % minority)"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "marvel_characters",
+  "file": "marvel_characters.csv",
+  "title": "Marvel comic characters",
+  "domain": "Media \u00b7 messy text",
+  "target": "ALIVE",
+  "rows": 16376,
+  "cols": 13,
+  "kb": 2350,
+  "missing": 19.0,
+  "issues": [
+   "40,482 blank cells",
+   "ID column: page_id, name"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "dc_characters",
+  "file": "dc_characters.csv",
+  "title": "DC comic characters",
+  "domain": "Media \u00b7 messy text",
+  "target": "ALIVE",
+  "rows": 6896,
+  "cols": 13,
+  "kb": 1080,
+  "missing": 17.8,
+  "issues": [
+   "15,969 blank cells",
+   "ID column: page_id, name"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "drug_use_by_age",
+  "file": "drug_use_by_age.csv",
+  "title": "Drug use by age group",
+  "domain": "Public health",
+  "target": "alcohol_use",
+  "rows": 17,
+  "cols": 28,
+  "kb": 2,
+  "missing": 1.9,
+  "issues": [
+   "9 '-' cells",
+   "mixed text/number column"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "bechdel_movies",
+  "file": "bechdel_movies.csv",
+  "title": "Bechdel test and movie budgets",
+  "domain": "Media",
+  "target": "binary",
+  "rows": 1794,
+  "cols": 15,
+  "kb": 203,
+  "missing": 1.5,
+  "issues": [
+   "57 '#N/A' cells",
+   "358 blank cells"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "candy_ranking",
+  "file": "candy_ranking.csv",
+  "title": "Halloween candy ranking",
+  "domain": "Food",
+  "target": "winpercent",
+  "rows": 85,
+  "cols": 13,
+  "kb": 5,
+  "missing": 0.0,
+  "issues": [],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "biopics",
+  "file": "biopics.csv",
+  "title": "Hollywood biopics",
+  "domain": "Media \u00b7 money as text",
+  "target": "box_office",
+  "rows": 761,
+  "cols": 14,
+  "kb": 106,
+  "missing": 5.0,
+  "issues": [
+   "non-UTF-8 text (converted)",
+   "325 '-' cells",
+   "204 blank cells",
+   "money stored as text"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "steak_survey",
+  "file": "steak_survey.csv",
+  "title": "Steak and risk survey",
+  "domain": "Survey",
+  "target": "How do you like your steak prepared?",
+  "rows": 551,
+  "cols": 15,
+  "kb": 61,
+  "missing": 5.7,
+  "issues": [
+   "471 blank cells",
+   "ID column: RespondentID",
+   "money stored as text",
+   "imbalanced target (0.2 % minority)"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "thanksgiving_survey",
+  "file": "thanksgiving_survey.csv",
+  "title": "Thanksgiving dinner survey",
+  "domain": "Survey \u00b7 very wide",
+  "target": "Do you celebrate Thanksgiving?",
+  "rows": 1058,
+  "cols": 65,
+  "kb": 376,
+  "missing": 59.3,
+  "issues": [
+   "541 'None' cells",
+   "40,266 blank cells",
+   "ID column: RespondentID",
+   "money stored as text",
+   "wide (65 columns)",
+   "imbalanced target (7.4 % minority)"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "avengers",
+  "file": "avengers.csv",
+  "title": "Avengers deaths and returns",
+  "domain": "Media \u00b7 heavy missing",
+  "target": "Death1",
+  "rows": 173,
+  "cols": 21,
+  "kb": 27,
+  "missing": 47.5,
+  "issues": [
+   "non-UTF-8 text (converted)",
+   "98 'NA' cells",
+   "1,629 blank cells"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "congress_age",
+  "file": "congress_age.csv",
+  "title": "US Congress members and age",
+  "domain": "Politics",
+  "target": "chamber",
+  "rows": 18635,
+  "cols": 13,
+  "kb": 1343,
+  "missing": 8.5,
+  "issues": [
+   "20,473 blank cells",
+   "date column",
+   "imbalanced target (19.1 % minority)"
+  ],
+  "source": "FiveThirtyEight",
+  "url": "https://github.com/fivethirtyeight/data"
+ },
+ {
+  "id": "airquality_ny",
+  "file": "airquality_ny.csv",
+  "title": "New York air quality (1973)",
+  "domain": "Environment",
+  "target": "Ozone",
+  "rows": 153,
+  "cols": 7,
+  "kb": 3,
+  "missing": 4.1,
+  "issues": [
+   "44 blank cells",
+   "ID column: rownames"
+  ],
+  "source": "R datasets via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "cars93",
+  "file": "cars93.csv",
+  "title": "1993 car models",
+  "domain": "Automotive",
+  "target": "Price",
+  "rows": 93,
+  "cols": 28,
+  "kb": 13,
+  "missing": 1.8,
+  "issues": [
+   "34 'None' cells",
+   "13 blank cells",
+   "ID column: rownames"
+  ],
+  "source": "MASS via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "student_survey",
+  "file": "student_survey.csv",
+  "title": "Student survey (Adelaide)",
+  "domain": "Education \u00b7 survey",
+  "target": "Exer",
+  "rows": 237,
+  "cols": 13,
+  "kb": 16,
+  "missing": 4.3,
+  "issues": [
+   "24 'None' cells",
+   "107 blank cells",
+   "ID column: rownames"
+  ],
+  "source": "MASS via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "mammal_sleep",
+  "file": "mammal_sleep.csv",
+  "title": "Mammal sleep",
+  "domain": "Biology",
+  "target": "sleep_total",
+  "rows": 83,
+  "cols": 12,
+  "kb": 6,
+  "missing": 13.7,
+  "issues": [
+   "136 blank cells",
+   "ID column: rownames, name"
+  ],
+  "source": "ggplot2 via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "professor_salaries",
+  "file": "professor_salaries.csv",
+  "title": "Professor salaries",
+  "domain": "HR",
+  "target": "salary",
+  "rows": 397,
+  "cols": 7,
+  "kb": 11,
+  "missing": 0.0,
+  "issues": [
+   "ID column: rownames"
+  ],
+  "source": "carData via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "baseball_hitters",
+  "file": "baseball_hitters.csv",
+  "title": "Baseball hitters and salaries",
+  "domain": "Sports",
+  "target": "Salary",
+  "rows": 322,
+  "cols": 21,
+  "kb": 24,
+  "missing": 0.9,
+  "issues": [
+   "59 blank cells",
+   "ID column: rownames"
+  ],
+  "source": "ISLR via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "credit_default",
+  "file": "credit_default.csv",
+  "title": "Credit-card default",
+  "domain": "Banking \u00b7 imbalanced",
+  "target": "default",
+  "rows": 10000,
+  "cols": 5,
+  "kb": 460,
+  "missing": 0.0,
+  "issues": [
+   "ID column: rownames",
+   "imbalanced target (3.3 % minority)"
+  ],
+  "source": "ISLR via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "carseats",
+  "file": "carseats.csv",
+  "title": "Child car-seat sales",
+  "domain": "Retail",
+  "target": "Sales",
+  "rows": 400,
+  "cols": 12,
+  "kb": 18,
+  "missing": 0.0,
+  "issues": [
+   "ID column: rownames"
+  ],
+  "source": "ISLR via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "us_colleges",
+  "file": "us_colleges.csv",
+  "title": "US colleges (1995)",
+  "domain": "Education",
+  "target": "Private",
+  "rows": 777,
+  "cols": 19,
+  "kb": 73,
+  "missing": 0.0,
+  "issues": [
+   "ID column: rownames"
+  ],
+  "source": "ISLR via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "biopsy",
+  "file": "biopsy.csv",
+  "title": "Breast biopsy cells (MASS)",
+  "domain": "Healthcare",
+  "target": "class",
+  "rows": 699,
+  "cols": 12,
+  "kb": 26,
+  "missing": 0.2,
+  "issues": [
+   "16 blank cells",
+   "ID column: rownames"
+  ],
+  "source": "MASS via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "nyc_weather_2013",
+  "file": "nyc_weather_2013.csv",
+  "title": "NYC airport weather 2013 (hourly)",
+  "domain": "Weather \u00b7 time series",
+  "target": "temp",
+  "rows": 26115,
+  "cols": 16,
+  "kb": 2336,
+  "missing": 5.7,
+  "issues": [
+   "23,974 blank cells",
+   "ID column: rownames",
+   "date column"
+  ],
+  "source": "nycflights13 via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "nyc_planes",
+  "file": "nyc_planes.csv",
+  "title": "Aircraft registered at NYC airports",
+  "domain": "Aviation",
+  "target": "engine",
+  "rows": 3322,
+  "cols": 10,
+  "kb": 250,
+  "missing": 10.1,
+  "issues": [
+   "3,369 blank cells",
+   "ID column: rownames",
+   "imbalanced target (0.1 % minority)"
+  ],
+  "source": "nycflights13 via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "texas_housing",
+  "file": "texas_housing.csv",
+  "title": "Texas housing market (monthly)",
+  "domain": "Real estate \u00b7 time series",
+  "target": "median",
+  "rows": 8602,
+  "cols": 10,
+  "kb": 538,
+  "missing": 5.4,
+  "issues": [
+   "4,643 blank cells",
+   "ID column: rownames"
+  ],
+  "source": "ggplot2 via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "ames_housing",
+  "file": "ames_housing.csv",
+  "title": "Ames house sales",
+  "domain": "Real estate \u00b7 wide",
+  "target": "Sale_Price",
+  "rows": 2930,
+  "cols": 75,
+  "kb": 1254,
+  "missing": 2.1,
+  "issues": [
+   "4,599 'None' cells",
+   "ID column: rownames",
+   "wide (75 columns)"
+  ],
+  "source": "modeldata via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "loans_openintro",
+  "file": "loans_openintro.csv",
+  "title": "Lending Club loans",
+  "domain": "Banking \u00b7 wide",
+  "target": "interest_rate",
+  "rows": 10000,
+  "cols": 56,
+  "kb": 2472,
+  "missing": 7.5,
+  "issues": [
+   "42,191 blank cells",
+   "ID column: rownames",
+   "wide (56 columns)"
+  ],
+  "source": "openintro via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "smoking_birthweight",
+  "file": "smoking_birthweight.csv",
+  "title": "US births 2014 (birth weight)",
+  "domain": "Healthcare",
+  "target": "weight",
+  "rows": 1000,
+  "cols": 14,
+  "kb": 82,
+  "missing": 1.7,
+  "issues": [
+   "231 blank cells",
+   "ID column: rownames"
+  ],
+  "source": "openintro via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "star_wars_characters",
+  "file": "star_wars_characters.csv",
+  "title": "Star Wars characters",
+  "domain": "Media",
+  "target": "species",
+  "rows": 87,
+  "cols": 12,
+  "kb": 6,
+  "missing": 10.1,
+  "issues": [
+   "105 blank cells",
+   "ID column: rownames, name"
+  ],
+  "source": "dplyr via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ },
+ {
+  "id": "wages_cps",
+  "file": "wages_cps.csv",
+  "title": "Wages: Current Population Survey 1985",
+  "domain": "Labour economics",
+  "target": "wage",
+  "rows": 534,
+  "cols": 12,
+  "kb": 30,
+  "missing": 0.0,
+  "issues": [
+   "ID column: rownames"
+  ],
+  "source": "AER via Rdatasets",
+  "url": "https://github.com/vincentarelbundock/Rdatasets"
+ }
+]
