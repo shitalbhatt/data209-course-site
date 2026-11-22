@@ -28,6 +28,7 @@ jobs:
           cp index.html styles.css script.js _site/
           cp -r eda-autopilot _site/
           cp -r eda-lab _site/
+          cp -r hackathon _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
