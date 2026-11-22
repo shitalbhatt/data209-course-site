@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DATA209 Real-World Data Hackathon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a course-handbook page. Sticky section nav, a live deadline strip,
+   reference tables for scanning, and the submission desk at the end. */
+:root{
+  --ink:#14213d;        /* headings, primary text */
+  --text:#2b3445;
+  --muted:#5d6779;
+  --paper:#f4f6f9;      /* page background */
+  --card:#ffffff;
+  --line:#d9dee7;
+  --accent:#1d4ed8;     /* links, primary buttons */
+  --accent-soft:#e3ebff;
+  --signal:#c2410c;     /* deadlines */
+  --signal-soft:#fff0e6;
+  --ok:#15803d; --ok-soft:#e6f6ec;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#e8edf7; --text:#cdd4e1; --muted:#98a2b5; --paper:#0f1522; --card:#171f2f; --line:#2a3447;
+    --accent:#7aa2ff; --accent-soft:#1b2a4d; --signal:#ff9a5c; --signal-soft:#3a2314; --ok:#5fd38d; --ok-soft:#14301f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e8edf7; --text:#cdd4e1; --muted:#98a2b5; --paper:#0f1522; --card:#171f2f; --line:#2a3447;
+  --accent:#7aa2ff; --accent-soft:#1b2a4d; --signal:#ff9a5c; --signal-soft:#3a2314; --ok:#5fd38d; --ok-soft:#14301f;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.55}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);color:var(--ink);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(30px,5vw,48px);font-weight:800}
+h2{font-size:28px;font-weight:800}
+h3{font-size:19px;font-weight:600}
+code,.mono{font-family:var(--mono);font-size:.88em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{background:var(--ink);color:var(--paper);padding:36px 0 28px}
+:root[data-theme="dark"] header.top{background:#0a0f19}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) header.top{background:#0a0f19}}
+header.top h1{color:#fff}
+header.top .kicker{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:#b8c4dc;text-transform:uppercase}
+header.top p{color:#d6deec;max-width:66ch;margin:12px 0 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:22px}
+.fact{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px 14px}
+.fact b{display:block;color:#fff;font-size:17px}
+.fact span{color:#b8c4dc;font-size:14px}
+.countdown{font-family:var(--mono);font-variant-numeric:tabular-nums}
+nav.sections{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+nav.sections .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav.sections a{white-space:nowrap;text-decoration:none;color:var(--text);font-weight:600;font-size:15px;padding:6px 12px;border-radius:8px}
+nav.sections a:hover{background:var(--accent-soft);color:var(--accent)}
+nav.sections a.cta{background:var(--accent);color:#fff}
+:root[data-theme="dark"] nav.sections a.cta{color:#0f1522}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) nav.sections a.cta{color:#0f1522}}
+section{padding:40px 0 8px}
+section > .wrap > p.lead{max-width:70ch;margin:10px 0 18px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.table-scroll{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:var(--body);font-weight:700;color:var(--ink);background:var(--accent-soft);font-size:14px;text-transform:uppercase;letter-spacing:.03em}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;text-align:right}
+.pill{display:inline-block;font-size:12.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.pill.due{background:var(--signal-soft);color:var(--signal)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.closed{background:var(--line);color:var(--muted)}
+tr.graded td:first-child{border-left:4px solid var(--signal)}
+.tracks{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.track{display:flex;flex-direction:column;gap:8px}
+.track .tid{font-family:var(--mono);font-weight:600;color:var(--accent);font-size:14px}
+.track p{margin:0}
+.track .q{color:var(--ink);font-weight:600}
+.track dl{margin:4px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:15px}
+.track dt{color:var(--muted);font-weight:600}
+.track dd{margin:0}
+ol.stages{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+ol.stages > li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px 14px 58px;position:relative}
+ol.stages > li::before{content:counter(s);position:absolute;left:16px;top:13px;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--paper);font-family:var(--mono);font-weight:600;display:grid;place-items:center;font-size:14px}
+ol.stages ul{margin:6px 0 0;padding-left:20px}
+pre.tree{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font-family:var(--mono);font-size:14px;line-height:1.6;margin:0}
+.callout{border-left:4px solid var(--signal);background:var(--signal-soft);padding:12px 16px;border-radius:0 10px 10px 0;max-width:80ch}
+.callout.info{border-color:var(--accent);background:var(--accent-soft)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+ul.rules{margin:0;padding-left:20px;display:grid;gap:6px}
+/* Submission desk */
+.desk-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.desk-tabs button{font:600 15px var(--body);border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.desk-tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+form.sub{display:grid;gap:14px}
+.field{display:grid;gap:5px}
+.field label,.field legend{font-weight:700;color:var(--ink);font-size:15px}
+.field .hint{font-size:14px;color:var(--muted)}
+input[type=text],input[type=url],input[type=email],select,textarea{font:16px var(--body);color:var(--text);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%}
+textarea{min-height:70px;resize:vertical}
+.members{display:grid;gap:8px}
+.member-row{display:grid;grid-template-columns:1fr 160px;gap:8px}
+@media (max-width:480px){.member-row{grid-template-columns:1fr}}
+.checks{display:grid;gap:6px;border:0;padding:0;margin:0}
+.checks label{font-weight:400;display:flex;gap:8px;align-items:flex-start}
+.btns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:700 16px var(--body);border-radius:9px;padding:10px 18px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn{color:#0f1522}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{color:#0f1522}}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.status{font-size:15px;padding:10px 14px;border-radius:9px;display:none}
+.status.show{display:block}
+.status.ok{background:var(--ok-soft);color:var(--ok)}
+.status.err{background:var(--signal-soft);color:var(--signal)}
+.status.info{background:var(--accent-soft);color:var(--ink)}
+.emailbox{display:none;gap:8px}
+.emailbox.show{display:grid}
+.emailbox pre{white-space:pre-wrap;background:var(--paper);border:1px dashed var(--line);border-radius:8px;padding:12px;font-family:var(--mono);font-size:13.5px;margin:0}
+#faculty{display:none}
+#faculty.show{display:block}
+footer{padding:40px 0 60px;color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important}}
+html{scroll-behavior:smooth}
+section{scroll-margin-top:56px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">DATA209 · Advanced Exploratory Data Analysis · Vidyashilp University</div>
+    <h1>Real-World Data Hackathon 2026</h1>
+    <p>In teams of 3–4, you will build a full EDA on real-world public data drawn from at least two sources, and turn messy data into conclusions backed by evidence. Taking part is optional, and your mark only counts if it beats your existing Lab Worksheet mark.</p>
+    <div class="facts">
+      <div class="fact"><b>Fri 27 Nov, 12:00 PM</b><span>Final submission deadline (IST)</span></div>
+      <div class="fact"><b class="countdown" id="countdown">–</b><span>Time left until the final deadline</span></div>
+      <div class="fact"><b>Out of 20</b><span>Counted only toward Lab Worksheet marks</span></div>
+      <div class="fact"><b>Best of two</b><span>Your hackathon mark or your existing mark, whichever is higher</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="sections" aria-label="Sections">
+  <div class="wrap">
+    <a href="#overview">Overview</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#tracks">Tracks &amp; data</a>
+    <a href="#requirements">Requirements</a>
+    <a href="#deliverables">Deliverables</a>
+    <a href="#rubric">Rubric</a>
+    <a href="#rules">Rules</a>
+    <a href="#submit" class="cta">Submit</a>
+  </div>
+</nav>
+
+<main>
+<section id="overview">
+  <div class="wrap">
+    <h2>Overview</h2>
+    <p class="lead">This hackathon is deliberately harder than the assignments. You will combine data from different real sources, check every cleaning decision, test your hypotheses formally, and present findings a stakeholder could act on.</p>
+    <div class="table-scroll">
+      <table>
+        <tbody>
+          <tr><td><b>Participation</b></td><td>Optional. There is no attendance requirement for any session.</td></tr>
+          <tr><td><b>Marks</b></td><td>Out of 20, counted only toward <b>Lab Worksheet marks</b>.</td></tr>
+          <tr><td><b>Best-of rule</b></td><td>Your final Lab Worksheet mark is the <b>higher</b> of your existing mark and your hackathon mark, so taking part can never lower it.</td></tr>
+          <tr><td><b>Team size</b></td><td>3–4 students. Each student can be in only one team.</td></tr>
+          <tr><td><b>Data</b></td><td>Real-world public data only, with at least 2 sources integrated (Track 10 merges files with different layouts instead).</td></tr>
+          <tr><td><b>Presentation</b></td><td>A recorded video of 8–12 minutes, in the same format for both cohorts.</td></tr>
+          <tr><td><b>Final deadline</b></td><td><span class="pill due">Fri 27 Nov 2026, 12:00 PM IST</span> Late work is not evaluated.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="wrap">
+    <h2>Timeline</h2>
+    <p class="lead">There are two graded checkpoints before the final deadline. All deadlines apply to both cohorts. The in-class and WhatsApp sessions are optional extra help.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>When (IST)</th><th>Milestone</th><th>Who</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Sun 22 Nov</td><td>Detailed brief released by email and WhatsApp</td><td>All students</td><td></td></tr>
+          <tr class="graded"><td><b>Mon 23 Nov, 10:00 AM</b></td><td><b>Registration closes.</b> Register your team and your top 3 track preferences on this site</td><td>Teams opting in</td><td><span class="pill" data-deadline="reg"></span></td></tr>
+          <tr><td>Mon 23 Nov, 11:00 AM</td><td>Team numbers and tracks posted on WhatsApp (earlier registration gets earlier preference; at most 2 teams per track)</td><td>Faculty</td><td></td></tr>
+          <tr><td>Mon 23 Nov, lecture hours</td><td>Optional working session in class</td><td>Cohort with lectures</td><td></td></tr>
+          <tr class="graded"><td><b>Tue 24 Nov, 11:59 PM</b></td><td><b>Milestone 1:</b> proposal and data audit (2-page PDF)</td><td>All teams</td><td><span class="pill" data-deadline="m1"></span></td></tr>
+          <tr><td>Wed 25 Nov, 6:00–7:00 PM</td><td>WhatsApp doubt hour</td><td>All teams</td><td></td></tr>
+          <tr class="graded"><td><b>Wed 25 Nov, 11:59 PM</b></td><td><b>Milestone 2:</b> notebooks 01–02 pushed to GitHub, producing the integrated, cleaned dataset</td><td>All teams</td><td><span class="pill" data-deadline="m2"></span></td></tr>
+          <tr><td>Thu 26 Nov, lecture hours</td><td>Optional mentoring session</td><td>Cohort with lectures</td><td></td></tr>
+          <tr><td>Thu 26 Nov, 6:00–7:00 PM</td><td>Second WhatsApp doubt hour</td><td>All teams</td><td></td></tr>
+          <tr class="graded"><td><b>Fri 27 Nov, 12:00 PM</b></td><td><b>Final submission:</b> GitHub repository, video, and report. This is a hard deadline</td><td>All teams</td><td><span class="pill" data-deadline="final"></span></td></tr>
+          <tr><td>Wed 2 Dec</td><td>Results and certificates announced</td><td>Faculty</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="tracks">
+  <div class="wrap">
+    <h2>Tracks &amp; data</h2>
+    <p class="lead">There are ten tracks, all on real-world public data. Each team answers its track's core question and adds at least 2 sub-questions of its own. Kaggle downloads need a free Kaggle login.</p>
+    <div class="tracks">
+      <article class="card track"><span class="tid">T1 · Air quality × weather</span>
+        <p class="q">How much of the variation in PM2.5 comes from weather, how much from season, and how much from the 2020 lockdown?</p>
+        <dl><dt>Data</dt><dd><a href="https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india">CPCB Air Quality Data in India</a> (city_day.csv) + <a href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo Historical Weather API</a></dd>
+        <dt>Join</dt><dd>City + date</dd>
+        <dt>Hard part</dt><dd>Weather has to be pulled from the API for every city, and many pollutant values are missing.</dd></dl></article>
+      <article class="card track"><span class="tid">T2 · Rainfall × crop yield</span>
+        <p class="q">Does monsoon rainfall drive kharif crop yield, and which states hold up when rainfall changes?</p>
+        <dl><dt>Data</dt><dd><a href="https://www.kaggle.com/datasets/rajanand/rainfall-in-india">Rainfall in India 1901–2015</a> + <a href="https://www.kaggle.com/datasets/abhinand05/crop-production-in-india">Crop Production in India</a></dd>
+        <dt>Join</dt><dd>State + year</dd>
+        <dt>Hard part</dt><dd>Rainfall is recorded by meteorological subdivision but crops by district, so you must build a subdivision-to-state mapping.</dd></dl></article>
+      <article class="card track"><span class="tid">T3 · Bengaluru housing × restaurants</span>
+        <p class="q">Does the number and rating of restaurants in a locality explain its price per sq ft?</p>
+        <dl><dt>Data</dt><dd><a href="https://www.kaggle.com/datasets/amitabhajoy/bengaluru-house-price-data">Bengaluru House Price Data</a> + <a href="https://www.kaggle.com/datasets/himanshupoddar/zomato-bangalore-restaurants">Zomato Bangalore Restaurants</a> (~550 MB)</dd>
+        <dt>Join</dt><dd>Locality name</dd>
+        <dt>Hard part</dt><dd>Locality names differ between the two sources and need fuzzy matching. total_sqft contains ranges and mixed units.</dd></dl></article>
+      <article class="card track"><span class="tid">T4 · COVID-19 × development</span>
+        <p class="q">Which development indicators go with lower COVID-19 death rates?</p>
+        <dl><dt>Data</dt><dd><a href="https://catalog.ourworldindata.org/garden/covid/latest/compact/compact.csv">Our World in Data COVID-19 (compact CSV)</a> + <a href="https://datatopics.worldbank.org/world-development-indicators/">World Bank WDI</a></dd>
+        <dt>Join</dt><dd>ISO3 country code + year</dd>
+        <dt>Hard part</dt><dd>Daily data must be aggregated to years, aggregate regions are mixed in with countries, and reporting has gaps.</dd></dl></article>
+      <article class="card track"><span class="tid">T5 · Happiness × economy</span>
+        <p class="q">Beyond GDP, what separates the happiest countries from the least happy?</p>
+        <dl><dt>Data</dt><dd><a href="https://www.kaggle.com/datasets/unsdsn/world-happiness">World Happiness Report</a> (2015–2019 files) + <a href="https://datatopics.worldbank.org/world-development-indicators/">World Bank WDI</a></dd>
+        <dt>Join</dt><dd>Country + year</dd>
+        <dt>Hard part</dt><dd>Column names change from year to year, and country names must be matched to ISO3 codes.</dd></dl></article>
+      <article class="card track"><span class="tid">T6 · Bike demand in two cities</span>
+        <p class="q">Do the effects of weather and time of day on bike demand carry over from one city to another?</p>
+        <dl><dt>Data</dt><dd><a href="https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset">Bike Sharing, Washington DC (UCI)</a> + <a href="https://archive.ics.uci.edu/dataset/560/seoul+bike+sharing+demand">Seoul Bike Sharing Demand (UCI)</a></dd>
+        <dt>Join</dt><dd>Stack both into one common schema</dd>
+        <dt>Hard part</dt><dd>DC temperatures are normalised while Seoul's are in °C, and seasons and holidays are coded differently.</dd></dl></article>
+      <article class="card track"><span class="tid">T7 · US flight delays</span>
+        <p class="q">Which airlines, airports and time slots cause the most delay, and do delays carry over through the day?</p>
+        <dl><dt>Data</dt><dd><a href="https://www.kaggle.com/datasets/usdot/flight-delays">2015 Flight Delays and Cancellations</a> (flights + airlines + airports)</dd>
+        <dt>Join</dt><dd>Airline code, airport code</dd>
+        <dt>Hard part</dt><dd>With 5.8 million rows you need a sampling strategy. Times are stored as HHMM integers, and some airport codes are numbers.</dd></dl></article>
+      <article class="card track"><span class="tid">T8 · IPL 2008–2024</span>
+        <p class="q">How has scoring changed in each phase of the innings, and does winning the toss matter?</p>
+        <dl><dt>Data</dt><dd><a href="https://www.kaggle.com/datasets/patrickb1912/ipl-complete-dataset-20082020">IPL Complete Dataset</a> (matches + deliveries)</dd>
+        <dt>Join</dt><dd>match_id</dd>
+        <dt>Hard part</dt><dd>Ball-by-ball data must be rolled up to matches, teams were renamed over the years, and some matches have no result.</dd></dl></article>
+      <article class="card track"><span class="tid">T9 · Olympics × wealth</span>
+        <p class="q">Do richer and more populous countries win more medals per person, and do host countries have an advantage?</p>
+        <dl><dt>Data</dt><dd><a href="https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results">120 Years of Olympic History</a> (athlete_events + noc_regions) + <a href="https://datatopics.worldbank.org/world-development-indicators/">World Bank WDI</a></dd>
+        <dt>Join</dt><dd>NOC → region → ISO3 + year</dd>
+        <dt>Hard part</dt><dd>A team medal must be counted once, not once per athlete. Historical NOCs such as URS and GDR need mapping.</dd></dl></article>
+      <article class="card track"><span class="tid">T10 · Used-car depreciation</span>
+        <p class="q">What decides a used car's resale value, and how fast do cars lose value by brand and fuel type?</p>
+        <dl><dt>Data</dt><dd><a href="https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho">Vehicle Dataset from CarDekho</a> (merge all of its files)</dd>
+        <dt>Join</dt><dd>Name + year + km driven</dd>
+        <dt>Hard part</dt><dd>The files have different layouts, units are written into the text ("23.4 kmpl", "1248 CC"), and the same car appears in several files.</dd></dl></article>
+    </div>
+    <p class="callout info" style="margin-top:16px">Our World in Data stopped updating its GitHub COVID-19 repository in August 2024, so use the compact CSV linked above. For World Bank data, use DataBank downloads or the <code>wbgapi</code> Python package, and name every indicator code you use (for example <code>NY.GDP.PCAP.CD</code> for GDP per capita).</p>
+  </div>
+</section>
+
+<section id="requirements">
+  <div class="wrap">
+    <h2>Mandatory technical requirements</h2>
+    <p class="lead">All nine stages are required. For each one, show the code, its output, and a written explanation of why you chose that method.</p>
+    <ol class="stages">
+      <li><h3>Problem framing</h3><ul><li>Write a one-paragraph problem statement and name who would use your answer.</li><li>State at least 4 hypotheses as H0/H1, each with the test you plan to use.</li></ul></li>
+      <li><h3>Data acquisition and integration</h3><ul><li>Download or fetch every source with code, not by hand. For API sources, save the fetch script.</li><li>Build the join key, using mapping tables, name matching, or fuzzy matching where needed.</li><li>Write a <b>join audit</b>: row counts before and after each merge, the list of unmatched keys, and why you chose that join type.</li></ul></li>
+      <li><h3>Data quality audit</h3><ul><li>Present it as a table: feature × issue × count × action.</li><li>Cover data types, exact and near duplicates, inconsistent categories and units, and impossible values.</li><li>For missing values, give the percentage per feature, a missingness heatmap, and a reasoned judgement of MCAR, MAR or MNAR for the top 3 features.</li></ul></li>
+      <li><h3>Missing values</h3><ul><li>Compare at least 2 imputation methods on the same feature (for example median vs KNN, or group-wise vs interpolation for time series), and show how each changes the distribution.</li></ul></li>
+      <li><h3>Outliers</h3><ul><li>Detect outliers with at least 2 methods (IQR, z-score or modified z-score, Isolation Forest, or domain rules), compare the results, and explain whether you keep, cap or remove each one.</li></ul></li>
+      <li><h3>Exploratory and statistical analysis</h3><ul><li>Use univariate, bivariate and multivariate visuals suited to each feature type.</li><li>Run a formal test for every hypothesis (t-test or Mann-Whitney, ANOVA or Kruskal-Wallis, chi-square, Pearson or Spearman). Check its assumptions and report the effect size, not only the p-value.</li><li>For the time-series tracks (T1, T2, T4, T6, T8), decompose trend and seasonality.</li></ul></li>
+      <li><h3>Transformation and feature engineering</h3><ul><li>Show skewness before and after a log, Box-Cox or Yeo-Johnson transformation, and explain your scaling and encoding choices.</li><li>Create at least <b>5 new features</b>, each with a one-line reason.</li></ul></li>
+      <li><h3>Feature selection and dimensionality reduction</h3><ul><li>Use correlation analysis plus VIF or mutual information to remove redundant features.</li><li>Run PCA and show a scree plot and cumulative explained variance, then interpret the top 2 components.</li></ul></li>
+      <li><h3>Insight and communication</h3><ul><li>Build a one-page dashboard, static or interactive with Plotly or Streamlit, that answers the core question.</li><li>Give at least 3 recommendations a stakeholder could act on, each backed by a specific chart or test result.</li><li>Include a limitations section covering bias, confounders, and what the data cannot tell you.</li></ul></li>
+    </ol>
+    <p class="callout" style="margin-top:16px"><b>Advanced extensions</b> are optional and count only toward the top-3 ranking: clustering with profiled segments, a geospatial map, an interactive Streamlit app, or a sensitivity check showing your conclusions hold under a different cleaning choice.</p>
+  </div>
+</section>
+
+<section id="deliverables">
+  <div class="wrap">
+    <h2>Deliverables</h2>
+    <p class="lead">Prepare every submission on this site, under <a href="#submit">Submit</a>. Share PDFs and videos as Google Drive links set to "anyone with the link".</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Deliverable</th><th>Due (IST)</th><th>Contents</th></tr></thead>
+        <tbody>
+          <tr><td><b>Milestone 1:</b> proposal and data audit (PDF, max 2 pages)</td><td>Tue 24 Nov, 11:59 PM</td><td>Problem statement, stakeholder, 4+ hypotheses with planned tests, sources downloaded with row × column counts, join plan, first data quality table, and member roles</td></tr>
+          <tr><td><b>Milestone 2:</b> GitHub checkpoint</td><td>Wed 25 Nov, 11:59 PM</td><td>Notebooks 01 and 02 run end to end and produce the integrated, cleaned dataset</td></tr>
+          <tr><td><b>Final:</b> GitHub repository</td><td>Fri 27 Nov, 12:00 PM</td><td>All notebooks, the dashboard, report, slides, README and requirements.txt</td></tr>
+          <tr><td><b>Final:</b> report (PDF, max 6 pages)</td><td>Fri 27 Nov, 12:00 PM</td><td>Problem, data and integration, quality actions, key findings with test results, recommendations, and limitations</td></tr>
+          <tr><td><b>Final:</b> video (8–12 min)</td><td>Fri 27 Nov, 12:00 PM</td><td>Every member appears on screen and explains their own part, including their code. Upload it to YouTube as Unlisted or to Google Drive with "anyone with the link"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 style="margin:22px 0 10px">Required repository structure</h3>
+    <p style="margin:0 0 10px">Use a public repository named <code>DATA209_Team&lt;No&gt;_T&lt;Track&gt;</code>. Every notebook must run from top to bottom on a fresh kernel. A notebook that fails to run is marked only on the outputs already saved in it.</p>
+<pre class="tree">DATA209_Team03_T1/
+├── README.md              # members, UEN, track, data links, video link, AI-use statement
+├── requirements.txt       # every package with its version
+├── data/
+│   └── README.md          # source links + download/fetch steps (no files over 50 MB)
+├── src/
+│   └── fetch_data.py      # code that downloads data or calls the API
+├── notebooks/
+│   ├── 01_acquisition_integration.ipynb
+│   ├── 02_quality_cleaning.ipynb
+│   ├── 03_eda_hypothesis_tests.ipynb
+│   └── 04_features_selection_pca.ipynb
+├── dashboard/             # dashboard image/PDF or Streamlit app
+├── report/Report_Team&lt;No&gt;.pdf
+└── slides/Slides_Team&lt;No&gt;.pdf</pre>
+  </div>
+</section>
+
+<section id="rubric">
+  <div class="wrap">
+    <h2>Evaluation rubric (20 marks)</h2>
+    <p class="lead">Team work counts for 16 marks and individual work for 4, so members of the same team can score differently.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Criterion</th><th style="text-align:right">Marks</th><th>Type</th><th>Full marks when</th></tr></thead>
+        <tbody>
+          <tr><td>Milestone 1: proposal and data audit</td><td class="num">1</td><td>Team</td><td>Submitted on time, with testable hypotheses and a realistic join plan</td></tr>
+          <tr><td>Milestone 2: GitHub checkpoint</td><td class="num">1</td><td>Team</td><td>Notebooks 01–02 pushed on time and producing the integrated dataset</td></tr>
+          <tr><td>Data integration and join audit</td><td class="num">3</td><td>Team</td><td>All sources joined in code, join losses counted and explained, and keys matched correctly</td></tr>
+          <tr><td>Data quality, missing values and outliers</td><td class="num">3</td><td>Team</td><td>Complete audit table, 2+ imputation methods and 2+ outlier methods compared, and every decision explained</td></tr>
+          <tr><td>Statistical analysis and hypothesis testing</td><td class="num">3</td><td>Team</td><td>The right test for each hypothesis, assumptions checked, and effect sizes reported and interpreted</td></tr>
+          <tr><td>Transformation, feature engineering, selection and PCA</td><td class="num">2</td><td>Team</td><td>5+ useful features, skew handled, redundant features removed, and PCA interpreted</td></tr>
+          <tr><td>Dashboard, report and recommendations</td><td class="num">2</td><td>Team</td><td>The dashboard answers the core question, every recommendation traces back to evidence, and limitations are stated honestly</td></tr>
+          <tr><td>Reproducibility and code quality</td><td class="num">1</td><td>Team</td><td>Repository structure followed, requirements.txt included, and notebooks run on a fresh kernel</td></tr>
+          <tr><td>Video: explanation of own part and code</td><td class="num">3</td><td>Individual</td><td>Explains what they did and why, and walks through their own code clearly</td></tr>
+          <tr><td>GitHub contribution</td><td class="num">1</td><td>Individual</td><td>Regular, real commits across the week rather than one upload at the end</td></tr>
+          <tr><td><b>Total</b></td><td class="num">20</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="callout info"><b>Best-of rule.</b> If you already have 14 and score 17 in the hackathon, 17 counts. If you score 12, your 14 stays.</div>
+      <div class="callout">A member who does not appear in the video and has no commits gets no hackathon mark, and their existing Lab Worksheet mark stands. The top 3 teams get certificates of merit, with ties broken by the advanced extensions.</div>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap">
+    <h2>Rules</h2>
+    <div class="card" style="margin-top:12px">
+      <ul class="rules">
+        <li>Participation is optional, and no session has an attendance requirement.</li>
+        <li>Teams have 3–4 members, and each student can be in only one team. At most 2 teams can take the same track, and they must work on different sub-questions.</li>
+        <li>Use only the sources listed for your track. You may add other public sources if you cite them in the README and the report.</li>
+        <li>You may use AI tools only for debugging. Add a short AI-use statement to the README, and be ready to explain any line of your notebooks.</li>
+        <li>Copying public Kaggle notebooks or another team's code earns zero for that criterion. Cite any notebook you learned from.</li>
+        <li>Commits made after Fri 27 Nov, 12:00 PM are not evaluated. Your repository is marked as it stood at the deadline.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="submit">
+  <div class="wrap">
+    <h2>Submit</h2>
+    <p class="lead">One team member submits each form for the whole team. You can resubmit as often as you like until the deadline, and only your latest submission counts. Each form closes automatically at its deadline.</p>
+    <div class="status info show" id="modeNote">Fill in the form below, then use "Get email version" and send that email to shital.bhatt@vidyashilp.edu.in before the deadline. Your submission counts only once the email is sent.</div>
+    <div class="desk-tabs" role="tablist" aria-label="Submission forms">
+      <button type="button" role="tab" id="tab-reg" aria-selected="true" data-form="reg">Registration <span class="pill" data-deadline="reg"></span></button>
+      <button type="button" role="tab" id="tab-m1" aria-selected="false" data-form="m1">Milestone 1 <span class="pill" data-deadline="m1"></span></button>
+      <button type="button" role="tab" id="tab-m2" aria-selected="false" data-form="m2">Milestone 2 <span class="pill" data-deadline="m2"></span></button>
+      <button type="button" role="tab" id="tab-final" aria-selected="false" data-form="final">Final <span class="pill" data-deadline="final"></span></button>
+    </div>
+
+    <div class="card">
+      <!-- Registration -->
+      <form class="sub" id="form-reg" data-type="reg" novalidate>
+        <h3>Team registration</h3>
+        <div class="field"><label for="reg-team">Team name</label><input type="text" id="reg-team" name="team" required maxlength="60"></div>
+        <div class="field"><label for="reg-email">Contact email (team leader)</label><input type="email" id="reg-email" name="email" required></div>
+        <fieldset class="field" style="border:0;padding:0;margin:0"><legend>Members (3–4)</legend>
+          <div class="members">
+            <div class="member-row"><input type="text" id="reg-n1" name="n1" placeholder="Member 1 full name" aria-label="Member 1 name" required><input type="text" id="reg-u1" name="u1" placeholder="UEN" aria-label="Member 1 UEN" required></div>
+            <div class="member-row"><input type="text" id="reg-n2" name="n2" placeholder="Member 2 full name" aria-label="Member 2 name" required><input type="text" id="reg-u2" name="u2" placeholder="UEN" aria-label="Member 2 UEN" required></div>
+            <div class="member-row"><input type="text" id="reg-n3" name="n3" placeholder="Member 3 full name" aria-label="Member 3 name" required><input type="text" id="reg-u3" name="u3" placeholder="UEN" aria-label="Member 3 UEN" required></div>
+            <div class="member-row"><input type="text" id="reg-n4" name="n4" placeholder="Member 4 full name (optional)" aria-label="Member 4 name"><input type="text" id="reg-u4" name="u4" placeholder="UEN" aria-label="Member 4 UEN"></div>
+          </div>
+        </fieldset>
+        <div class="grid2">
+          <div class="field"><label for="reg-p1">Track preference 1</label><select id="reg-p1" name="p1" required></select></div>
+          <div class="field"><label for="reg-p2">Track preference 2</label><select id="reg-p2" name="p2" required></select></div>
+          <div class="field"><label for="reg-p3">Track preference 3</label><select id="reg-p3" name="p3" required></select></div>
+        </div>
+        <div class="btns"><button class="btn" type="submit">Prepare registration email</button><button class="btn ghost" type="button" data-email="reg">Get email version</button></div>
+        <div class="status" role="status"></div>
+        <div class="emailbox"></div>
+      </form>
+
+      <!-- Milestone 1 -->
+      <form class="sub" id="form-m1" data-type="m1" hidden novalidate>
+        <h3>Milestone 1: proposal and data audit</h3>
+        <div class="grid2">
+          <div class="field"><label for="m1-teamno">Team number</label><input type="text" id="m1-teamno" name="teamno" required placeholder="e.g. 07"><span class="hint">You get your team number on WhatsApp on Monday at 11:00 AM.</span></div>
+          <div class="field"><label for="m1-track">Track</label><select id="m1-track" name="track" required></select></div>
+        </div>
+        <div class="field"><label for="m1-pdf">Link to your 2-page PDF</label><input type="url" id="m1-pdf" name="pdf" required placeholder="https://drive.google.com/…"><span class="hint">Set the Google Drive file to "Anyone with the link can view".</span></div>
+        <div class="field"><label for="m1-notes">Note for faculty (optional)</label><textarea id="m1-notes" name="notes" maxlength="800"></textarea></div>
+        <div class="btns"><button class="btn" type="submit">Prepare Milestone 1 email</button><button class="btn ghost" type="button" data-email="m1">Get email version</button></div>
+        <div class="status" role="status"></div>
+        <div class="emailbox"></div>
+      </form>
+
+      <!-- Milestone 2 -->
+      <form class="sub" id="form-m2" data-type="m2" hidden novalidate>
+        <h3>Milestone 2: GitHub checkpoint</h3>
+        <div class="grid2">
+          <div class="field"><label for="m2-teamno">Team number</label><input type="text" id="m2-teamno" name="teamno" required></div>
+          <div class="field"><label for="m2-track">Track</label><select id="m2-track" name="track" required></select></div>
+        </div>
+        <div class="field"><label for="m2-repo">Public GitHub repository URL</label><input type="url" id="m2-repo" name="repo" required placeholder="https://github.com/…/DATA209_Team07_T3"><span class="hint">Notebooks 01 and 02 must be pushed by the deadline. Commit times are checked.</span></div>
+        <div class="btns"><button class="btn" type="submit">Prepare Milestone 2 email</button><button class="btn ghost" type="button" data-email="m2">Get email version</button></div>
+        <div class="status" role="status"></div>
+        <div class="emailbox"></div>
+      </form>
+
+      <!-- Final -->
+      <form class="sub" id="form-final" data-type="final" hidden novalidate>
+        <h3>Final submission</h3>
+        <div class="grid2">
+          <div class="field"><label for="f-teamno">Team number</label><input type="text" id="f-teamno" name="teamno" required></div>
+          <div class="field"><label for="f-track">Track</label><select id="f-track" name="track" required></select></div>
+        </div>
+        <div class="field"><label for="f-repo">Public GitHub repository URL</label><input type="url" id="f-repo" name="repo" required></div>
+        <div class="field"><label for="f-video">Video link (YouTube Unlisted or Google Drive)</label><input type="url" id="f-video" name="video" required></div>
+        <div class="field"><label for="f-report">Report PDF link (max 6 pages)</label><input type="url" id="f-report" name="report" required></div>
+        <div class="field"><label for="f-dash">Dashboard link (optional, e.g. Streamlit app)</label><input type="url" id="f-dash" name="dashboard"></div>
+        <fieldset class="checks field"><legend>Before you submit, confirm that:</legend>
+          <label><input type="checkbox" name="c1" id="f-c1" required> The repository is public and follows the required structure</label>
+          <label><input type="checkbox" name="c2" id="f-c2" required> All four notebooks run on a fresh kernel</label>
+          <label><input type="checkbox" name="c3" id="f-c3" required> The README lists members, UEN numbers, track, data links, the video link and the AI-use statement</label>
+          <label><input type="checkbox" name="c4" id="f-c4" required> The video is 8–12 minutes, every member appears in it, and the link opens without a sign-in</label>
+          <label><input type="checkbox" name="c5" id="f-c5" required> Every member has commits on at least 3 different days</label>
+        </fieldset>
+        <div class="btns"><button class="btn" type="submit">Prepare final email</button><button class="btn ghost" type="button" data-email="final">Get email version</button></div>
+        <div class="status" role="status"></div>
+        <div class="emailbox"></div>
+      </form>
+    </div>
+    <p style="color:var(--muted);font-size:15px;margin-top:12px">If you can't submit on this site, use the "Get email version" button on the form. It creates the subject line and message for you to send to <b>shital.bhatt@vidyashilp.edu.in</b> before the deadline.</p>
+  </div>
+</section>
+
+<section id="faculty">
+  <div class="wrap">
+    <h2>Faculty view: submissions</h2>
+    <p class="lead">Only you can see this section. It lists the latest submission from each student account, and each table has a button that copies it as CSV.</p>
+    <div id="facultyTables" style="display:grid;gap:22px"></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">DATA209 Advanced Exploratory Data Analysis · School of Engineering and Technology, Vidyashilp University · Faculty: Dr. Shital D. Bhatt (shital.bhatt@vidyashilp.edu.in) · All times are IST.</div></footer>
+
+<script>
+(function(){
+  var EMAIL = "shital.bhatt@vidyashilp.edu.in";
+  var DEADLINES = {
+    reg:   new Date("2026-11-23T10:00:00+05:30"),
+    m1:    new Date("2026-11-24T23:59:00+05:30"),
+    m2:    new Date("2026-11-25T23:59:00+05:30"),
+    final: new Date("2026-11-27T12:00:00+05:30")
+  };
+  var LABELS = {reg:"Registration", m1:"Milestone 1", m2:"Milestone 2", final:"Final"};
+  var TRACKS = ["T1 Air quality × weather","T2 Rainfall × crop yield","T3 Bengaluru housing × restaurants","T4 COVID-19 × development","T5 Happiness × economy","T6 Bike demand: two cities","T7 US flight delays","T8 IPL 2008–2024","T9 Olympics × wealth","T10 Used-car depreciation"];
+  var FIELDS = {
+    reg:   [["team","Team name"],["email","Contact email"],["n1","Member 1"],["u1","UEN 1"],["n2","Member 2"],["u2","UEN 2"],["n3","Member 3"],["u3","UEN 3"],["n4","Member 4"],["u4","UEN 4"],["p1","Preference 1"],["p2","Preference 2"],["p3","Preference 3"]],
+    m1:    [["teamno","Team no."],["track","Track"],["pdf","PDF link"],["notes","Notes"]],
+    m2:    [["teamno","Team no."],["track","Track"],["repo","GitHub repo"]],
+    final: [["teamno","Team no."],["track","Track"],["repo","GitHub repo"],["video","Video"],["report","Report"],["dashboard","Dashboard"]]
+  };
+
+  function isOpen(t){ return Date.now() < DEADLINES[t].getTime(); }
+  function fmt(d){ try { return d.toLocaleString("en-IN",{timeZone:"Asia/Kolkata",weekday:"short",day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}); } catch(e){ return d.toString(); } }
+
+  // Deadline pills and countdown
+  function paintPills(){
+    document.querySelectorAll("[data-deadline]").forEach(function(el){
+      var t = el.getAttribute("data-deadline");
+      if (isOpen(t)) { el.textContent = "Open"; el.className = "pill due"; }
+      else { el.textContent = "Closed"; el.className = "pill closed"; }
+    });
+    var ms = DEADLINES.final.getTime() - Date.now();
+    var cd = document.getElementById("countdown");
+    if (ms <= 0) { cd.textContent = "Closed"; return; }
+    var d = Math.floor(ms/86400000), h = Math.floor(ms%86400000/3600000), m = Math.floor(ms%3600000/60000);
+    cd.textContent = d + "d " + h + "h " + m + "m";
+  }
+  paintPills(); setInterval(paintPills, 30000);
+
+  // Track selects
+  document.querySelectorAll("select").forEach(function(s){
+    var o = document.createElement("option"); o.value = ""; o.textContent = "Choose a track"; s.appendChild(o);
+    TRACKS.forEach(function(t){ var x = document.createElement("option"); x.value = t; x.textContent = t; s.appendChild(x); });
+  });
+
+  // Tabs
+  var tabs = document.querySelectorAll(".desk-tabs button");
+  tabs.forEach(function(b){
+    b.addEventListener("click", function(){
+      tabs.forEach(function(x){ x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+      ["reg","m1","m2","final"].forEach(function(t){ document.getElementById("form-"+t).hidden = (t !== b.getAttribute("data-form")); });
+    });
+  });
+
+  // Close forms past deadline
+  function lockClosed(){
+    ["reg","m1","m2","final"].forEach(function(t){
+      if (!isOpen(t)) {
+        var f = document.getElementById("form-"+t);
+        f.querySelectorAll("input,select,textarea,button").forEach(function(el){ el.disabled = true; });
+        showStatus(f, "err", LABELS[t] + " closed on " + fmt(DEADLINES[t]) + ". Late submissions are not accepted.");
+      }
+    });
+  }
+
+  function showStatus(form, kind, text){
+    var s = form.querySelector(".status"); s.className = "status show " + kind; s.textContent = text;
+  }
+
+  function collect(form){
+    var t = form.getAttribute("data-type"), data = {};
+    FIELDS[t].forEach(function(p){ var el = form.elements[p[0]]; data[p[0]] = el ? String(el.value || "").trim() : ""; });
+    return data;
+  }
+
+  function validate(form){
+    var bad = null;
+    form.querySelectorAll("[required]").forEach(function(el){
+      if (bad) return;
+      if (el.type === "checkbox" ? !el.checked : !String(el.value).trim()) bad = el;
+    });
+    if (!bad) {
+      form.querySelectorAll("input[type=url]").forEach(function(el){
+        if (bad || !el.value.trim()) return;
+        if (!/^https?:\/\//i.test(el.value.trim())) bad = el;
+      });
+    }
+    if (bad) { bad.focus(); return "Please complete this field: " + (bad.labels && bad.labels[0] ? bad.labels[0].textContent.trim() : (bad.getAttribute("aria-label") || bad.name)); }
+    var t = form.getAttribute("data-type");
+    if (t === "reg") {
+      var p = [form.elements.p1.value, form.elements.p2.value, form.elements.p3.value];
+      if (p[0] === p[1] || p[0] === p[2] || p[1] === p[2]) return "Choose three different tracks.";
+      if (form.elements.n4.value.trim() && !form.elements.u4.value.trim()) return "Add the UEN for member 4.";
+    }
+    return null;
+  }
+
+  function subjectFor(t, d){
+    if (t === "reg") return "DATA209 Hackathon Registration – " + d.team;
+    return "DATA209 Hackathon " + ({m1:"M1",m2:"M2",final:"Final"})[t] + " – Team " + d.teamno;
+  }
+  function bodyFor(t, d){
+    var lines = ["Dear Dr. Bhatt,", "", "Please find our " + LABELS[t] + " submission for the DATA209 Real-World Data Hackathon.", ""];
+    FIELDS[t].forEach(function(p){ if (d[p[0]]) lines.push(p[1] + ": " + d[p[0]]); });
+    lines.push("", "Regards,", (t === "reg" ? d.n1 : "Team " + d.teamno));
+    return lines.join("\n");
+  }
+
+  function showEmail(form){
+    var t = form.getAttribute("data-type"), err = validate(form);
+    if (err) { showStatus(form, "err", err); return; }
+    var d = collect(form), subj = subjectFor(t, d), body = bodyFor(t, d);
+    var box = form.querySelector(".emailbox"); box.className = "emailbox show"; box.textContent = "";
+    var info = document.createElement("div"); info.innerHTML = "<b>To:</b> " + EMAIL + "<br><b>Subject:</b> ";
+    var subjSpan = document.createElement("span"); subjSpan.textContent = subj; info.appendChild(subjSpan);
+    var pre = document.createElement("pre"); pre.textContent = body;
+    var btns = document.createElement("div"); btns.className = "btns";
+    var copy = document.createElement("button"); copy.type = "button"; copy.className = "btn ghost"; copy.textContent = "Copy message";
+    copy.addEventListener("click", function(){
+      var text = "To: " + EMAIL + "\nSubject: " + subj + "\n\n" + body;
+      navigator.clipboard.writeText(text).then(function(){ copy.textContent = "Copied"; }, function(){ copy.textContent = "Copy failed: select the text and copy it"; });
+    });
+    var mail = document.createElement("a"); mail.className = "btn ghost"; mail.style.textDecoration = "none";
+    mail.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+    mail.textContent = "Open in mail app";
+    btns.appendChild(copy); btns.appendChild(mail);
+    box.appendChild(info); box.appendChild(pre); box.appendChild(btns);
+    showStatus(form, "info", "Send this message from your university email before " + fmt(DEADLINES[t]) + ". It is not submitted until you send it.");
+  }
+  document.querySelectorAll("[data-email]").forEach(function(b){
+    b.addEventListener("click", function(){ showEmail(b.closest("form")); });
+  });
+
+  // Online submission (db)
+  var db = null, uid = null, online = false;
+  var note = document.getElementById("modeNote");
+
+  function fillForm(form, data){
+    Object.keys(data).forEach(function(k){
+      var el = form.elements[k];
+      if (el && el.type !== "checkbox" && typeof data[k] === "string") el.value = data[k];
+    });
+  }
+
+  document.querySelectorAll("form.sub").forEach(function(form){
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var t = form.getAttribute("data-type");
+      if (!isOpen(t)) { showStatus(form, "err", "This form closed at its deadline."); return; }
+      var err = validate(form); if (err) { showStatus(form, "err", err); return; }
+      if (!online) { showEmail(form); return; }
+      var d = collect(form); d.submittedAt = new Date().toISOString(); d.type = t;
+      var btn = form.querySelector("button[type=submit]"); btn.disabled = true;
+      showStatus(form, "info", "Submitting…");
+      db.doc(t + "/" + uid).set(d).then(function(){
+        showStatus(form, "ok", "Submitted at " + fmt(new Date(d.submittedAt)) + ". You can resubmit until the deadline, and only the latest version counts.");
+        btn.disabled = false;
+      }, function(e){
+        btn.disabled = false;
+        if (e && e.code === "invalid_argument") {
+          online = false;
+          note.className = "status err show";
+          note.textContent = "Your account can't submit on this site. Use \"Get email version\" and send the message instead.";
+          showEmail(form);
+        } else {
+          showStatus(form, "err", "That didn't go through (" + ((e && e.code) || "error") + "). Wait a moment and try again, or use the email version.");
+        }
+      });
+    });
+  });
+
+  lockClosed();
+
+  var timer = setTimeout(function(){
+    if (!online) { note.className = "status info show"; note.textContent = "Online submission isn't available in this view. Fill in a form and use \"Get email version\" to send it by email."; }
+  }, 10000);
+
+  Promise.all([window.claude ? claude.use("db") : Promise.resolve(null), window.claude ? claude.use("user") : Promise.resolve(null)]).then(function(r){
+    db = r[0]; var user = r[1];
+    if (!db || !user) { clearTimeout(timer); note.className = "status info show"; note.textContent = "Fill in the form below, then use \"Get email version\" and send that email to shital.bhatt@vidyashilp.edu.in before the deadline. Your submission counts only once the email is sent."; return; }
+    return Promise.all([user.id(), user.can ? user.can("data.write") : null, user.isOwner()]).then(function(v){
+      clearTimeout(timer);
+      uid = v[0]; var can = v[1], owner = v[2];
+      if (!uid || can === false) {
+        note.className = "status info show";
+        note.textContent = "Your account can view this site but can't submit on it. Fill in a form and use \"Get email version\" to send it by email.";
+      } else {
+        online = true;
+        note.className = "status ok show";
+        note.textContent = "You can submit on this site. Your latest submission for each form is saved, and you can update it until the deadline.";
+        ["reg","m1","m2","final"].forEach(function(t){
+          db.doc(t + "/" + uid).get().then(function(s){
+            if (s.exists) {
+              var f = document.getElementById("form-"+t), d = s.data();
+              fillForm(f, d);
+              if (isOpen(t)) showStatus(f, "ok", "Your team already submitted this, at " + fmt(new Date(d.submittedAt)) + ". Submitting again replaces it.");
+            }
+          }, function(){});
+        });
+      }
+      if (owner) loadFaculty();
+    });
+  }).catch(function(){
+    clearTimeout(timer);
+    note.className = "status info show"; note.textContent = "Online submission isn't available in this view. Fill in a form and use \"Get email version\" to send it by email.";
+  });
+
+  function csvCell(v){ v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; }
+
+  function loadFaculty(){
+    var sec = document.getElementById("faculty"); sec.className = "show";
+    var holder = document.getElementById("facultyTables");
+    ["reg","m1","m2","final"].forEach(function(t){
+      var block = document.createElement("div");
+      var h = document.createElement("h3"); h.textContent = LABELS[t] + " (loading…)"; h.style.marginBottom = "8px";
+      var wrap = document.createElement("div"); wrap.className = "table-scroll";
+      block.appendChild(h); block.appendChild(wrap); holder.appendChild(block);
+      var cols = FIELDS[t].concat([["submittedAt","Submitted (IST)"]]);
+      db.collection(t).onSnapshot(function(snap){
+        var rows = snap.docs.map(function(x){ return x.data() || {}; });
+        rows.sort(function(a,b){ return String(a.submittedAt).localeCompare(String(b.submittedAt)); });
+        h.textContent = LABELS[t] + " · " + rows.length + " submission" + (rows.length === 1 ? "" : "s");
+        wrap.textContent = "";
+        if (!rows.length) { var p = document.createElement("p"); p.style.padding = "12px"; p.style.margin = "0"; p.textContent = "No submissions yet."; wrap.appendChild(p); return; }
+        var table = document.createElement("table"), thead = document.createElement("thead"), tr = document.createElement("tr");
+        cols.forEach(function(c){ var th = document.createElement("th"); th.textContent = c[1]; tr.appendChild(th); });
+        thead.appendChild(tr); table.appendChild(thead);
+        var tb = document.createElement("tbody");
+        rows.forEach(function(r){
+          var row = document.createElement("tr");
+          cols.forEach(function(c){
+            var td = document.createElement("td"), v = r[c[0]] || "";
+            if (c[0] === "submittedAt" && v) { var dt = new Date(v); td.textContent = fmt(dt); if (dt > DEADLINES[t]) { var late = document.createElement("span"); late.className = "pill due"; late.textContent = " late"; td.appendChild(late); } }
+            else if (/^https?:\/\//.test(v)) { var a = document.createElement("a"); a.href = v; a.textContent = "open"; a.target = "_blank"; a.rel = "noopener"; td.appendChild(a); }
+            else td.textContent = v;
+            row.appendChild(td);
+          });
+          tb.appendChild(row);
+        });
+        table.appendChild(tb); wrap.appendChild(table);
+        var btn = document.createElement("button"); btn.type = "button"; btn.className = "btn ghost"; btn.style.margin = "10px"; btn.textContent = "Copy as CSV";
+        btn.addEventListener("click", function(){
+          var csv = [cols.map(function(c){ return csvCell(c[1]); }).join(",")].concat(rows.map(function(r){ return cols.map(function(c){ return csvCell(r[c[0]]); }).join(","); })).join("\n");
+          navigator.clipboard.writeText(csv).then(function(){ btn.textContent = "Copied"; }, function(){ btn.textContent = "Copy failed"; });
+        });
+        wrap.appendChild(btn);
+      }, function(){ h.textContent = LABELS[t] + " (couldn't load)"; });
+    });
+  }
+})();
+</script>
+</body>
+</html>
